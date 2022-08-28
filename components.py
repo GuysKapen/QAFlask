@@ -6,7 +6,7 @@ import re
 from gensim.summarization.bm25 import BM25
 import requests
 import wikipedia
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering, QuestionAnsweringPipeline
+from transformers import AutoTokenizer, TFAutoModelForQuestionAnswering, QuestionAnsweringPipeline
 
 
 class QueryProcessor:
@@ -96,7 +96,7 @@ class PassageRetrieval:
 class AnswerExtractor:
     def __init__(self, tokenizer, model):
         tokenizer = AutoTokenizer.from_pretrained(tokenizer)
-        model = AutoModelForQuestionAnswering.from_pretrained(model)
+        model = TFAutoModelForQuestionAnswering.from_pretrained(model)
         self.nlp = QuestionAnsweringPipeline(model=model, tokenizer=tokenizer)
 
     def extract(self, question, passages):
